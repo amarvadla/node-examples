@@ -12,13 +12,24 @@ app.post('/todo',(req,res)=>{
 
   var newTodo = new Todo({
     text : req.body.text,
-    completedAt : req.body.completedAt
+    completedAt : req.body.completedAt,
+    completed : req.body.completed
   });
 
   newTodo.save().then((doc)=>{
     res.send(doc);
   },(err)=>{
     res.send(doc);
+  });
+
+});
+
+app.get('/todo',(req,res)=>{
+
+  Todo.find().then((data)=>{
+    res.send({data});
+  },(error)=>{
+    res.status(400).send(error);
   });
 
 });
