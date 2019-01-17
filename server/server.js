@@ -6,6 +6,8 @@ var {Todo} = require('./models/todo');
 var {ObjectId} = require('mongodb').ObjectId;
 var app = new express();
 
+const port = process.env.PORT || 3000;
+
 app.use(bodyParser.json());
 
 app.post('/todo',(req,res)=>{
@@ -54,6 +56,6 @@ app.get('/todo/:id',(req,res)=>{
 });
 
 
-app.listen(3000,()=>{
-  console.log('started on 3000');
+app.listen(port,()=>{
+  console.log(`started up in ${port}`);
 })
