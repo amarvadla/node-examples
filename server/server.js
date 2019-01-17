@@ -56,6 +56,28 @@ app.get('/todo/:id',(req,res)=>{
 });
 
 
+app.delete('/todo/:id',(req,res)=>{
+
+    var id = req.params.id;
+
+    if(!ObjectId.isValid(id)){
+      return res.status(404).send("unable to find the id");
+    }
+
+    Todo.findByIdAndRemove(id).then((data)=>{
+      if(!data){
+        return res.status(404).send("can not fetch the id");
+      }
+      res.send({data})
+    },(error)=>{
+      res.send(error);
+    }).catch((e)=>{
+      console.log(e);
+      res.status(404).send("error occured");
+    });
+
+});
+
 app.listen(port,()=>{
   console.log(`started up in ${port}`);
 })
